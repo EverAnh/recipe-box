@@ -6,11 +6,25 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      recipes: [
-        "Pumpkin Pie",
-        "Spaghetti",
-        "Onion Pie"
-      ]
+      recipes: {
+        "Pumpkin Pie": [
+          "Pumpkin Puree",
+          "Sweetened Condensed Milk",
+          "Eggs",
+          "Pumpkin Pie Spice",
+          "Pie Crust"
+        ],
+        "Spaghetti": [
+          "Noodles",
+          "Tomato Sauce",
+          "(Optional) Meatballs"
+        ],
+        "Onion Pie": [
+          "Onion",
+          "Pie Crust",
+          "Sounds Yummy right?"
+        ]
+      }
     };
   }
   render() {
@@ -19,7 +33,9 @@ class App extends React.Component {
         <div className="small-12 columns">
           <div className="bordered">
             <h1>Anh's Recipe Box</h1>
-            <RecipeList />
+            <RecipeList
+              state={this.state}
+            />
             <button
               type="button"
               className="button"

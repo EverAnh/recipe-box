@@ -6,11 +6,26 @@ const Recipe = (props) => {
     <div>
       <h2>{props.recipeName}</h2>
       <ul>
-        <li><Ingredient /></li>
-        <li><Ingredient /></li>
-        <li><Ingredient /></li>
-        <li><Ingredient /></li>
+        {props.ingredientList.map((ingredient) => (
+          <li><Ingredient ingredient={ingredient} /></li>
+        ))}
       </ul>
+      <div className="button-group">
+        <button
+          type="button"
+          className="alert button"
+          name="Delete"
+        >
+          Delete
+        </button>
+        <button
+          type="button"
+          className="secondary button"
+          name="Edit"
+        >
+          Edit
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,26 +1,17 @@
 import React from 'react';
 import Recipe from './Recipe';
 
-class RecipeList extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      recipes: [
-        "Pumpkin Pie",
-        "Spaghetti",
-        "Onion Pie"
-      ]
-    };
-  }
-  render() {
+const RecipeList = (props) => {
     return (
       <div className="bordered">
-        {this.state.recipes.map((recipeName) => (
-          <Recipe recipeName={recipeName} />
+        {Object.keys(props.state.recipes).map((recipeName) => (
+          <Recipe
+            recipeName={recipeName}
+            ingredientList={props.state.recipes[recipeName]}
+          />
         ))}
       </div>
     );
-  }
 }
 
 export default RecipeList;
