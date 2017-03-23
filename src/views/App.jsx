@@ -29,22 +29,18 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="row">
-        <div className="small-12 columns">
-          <div className="bordered">
-            <h1>Anh's Recipe Box</h1>
-            <RecipeList
-              state={this.state}
-            />
-            <button
-              type="button"
-              className="button"
-              name="Add Recipe"
-            >
-              Add Recipe
-            </button>
-          </div>
-        </div>
+      <div className="app">
+        <h1>Anh's Recipe Box</h1>
+        <RecipeList
+          state={this.state}
+        />
+        <button
+          type="button"
+          className="button"
+          name="Add Recipe"
+        >
+          Add Recipe
+        </button>
       </div>
     );
   }

@@ -10,22 +10,20 @@ const Recipe = (props) => {
           <li><Ingredient ingredient={ingredient} /></li>
         ))}
       </ul>
-      <div className="button-group">
-        <button
-          type="button"
-          className="alert button"
-          name="Delete"
-        >
-          Delete
-        </button>
-        <button
-          type="button"
-          className="secondary button"
-          name="Edit"
-        >
-          Edit
-        </button>
-      </div>
+      <button
+        type="button"
+        className="alert button"
+        name="Delete"
+      >
+        Delete
+      </button>
+      <button
+        type="button"
+        className="secondary button"
+        name="Edit"
+      >
+        Edit
+      </button>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import Recipe from './Recipe';
 
 const RecipeList = (props) => {
     return (
-      <div className="bordered">
+      <div>
         {Object.keys(props.state.recipes).map((recipeName) => (
           <Recipe
             recipeName={recipeName}
