@@ -20,7 +20,7 @@ const Recipe = (props) => {
         </button>
         <button
           type="button"
-          className="secondary button"
+          className="button"
           name="Edit"
         >
           Edit

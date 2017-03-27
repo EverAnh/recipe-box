@@ -38,7 +38,7 @@ class App extends React.Component {
             />
             <button
               type="button"
-              className="button"
+              className="success button"
               name="Add Recipe"
             >
               Add Recipe
