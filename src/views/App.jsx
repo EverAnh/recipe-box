@@ -1,10 +1,12 @@
 import React from 'react';
+import { Button, Grid, Row, Col } from 'react-bootstrap';
 import Recipe from './Recipe';
 import '../css/App.css';
 
 class App extends React.Component {
   constructor (props) {
     super(props);
+    this.addRecipe = this.addRecipe.bind(this);
     this.state = {
       recipes: {
         "Pumpkin Pie": [
@@ -27,30 +29,28 @@ class App extends React.Component {
       }
     };
   }
+
+  addRecipe() {
+    alert("hello");
+
+  }
+
   render() {
     return (
-      <div className="row">
-        <div className="small-12 columns">
-          <div className="bordered">
-            <h1>Anh's Recipe Box</h1>
-
+      <Grid>
+        <Row>
+          <Col xs={12}>
+            <h1>My Recipe Box</h1>
             {Object.keys(this.state.recipes).map((recipeName) => (
               <Recipe
                 recipeName={recipeName}
                 ingredientList={this.state.recipes[recipeName]}
               />
             ))}
-
-            <button
-              type="button"
-              className="success button"
-              name="Add Recipe"
-            >
-              Add Recipe
-            </button>
-          </div>
-        </div>
-      </div>
+            <Button bsStyle="primary">Add Recipe</Button>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

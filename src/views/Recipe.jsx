@@ -1,56 +1,28 @@
 import React from 'react';
+import { Button, ButtonToolbar, Panel } from 'react-bootstrap';
 import Ingredient from './Ingredient';
 
 class Recipe extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.state = {expanded: false};
-    this.toggleExpanded = this.toggleExpanded.bind(this);
+    this.state = {open: false};
   }
 
-  toggleExpanded () {
-    let flipped = !this.state.expanded;
-    this.setState({expanded: flipped});
-  }
-
-  ingredientList (props) {
-    return (
-      <ul>
-        {this.props.ingredientList.map((ingredient) => (
-          <li><Ingredient ingredient={ingredient} /></li>
-        ))}
-      </ul>
-    );
-  }
-
-  recipeButtons (props) {
-    return (
-      <div className="button-group">
-        <button type="button" className="alert button" name="Delete">
-          Delete
-        </button>
-        <button type="button" className="button" name="Edit">
-          Edit
-        </button>
-      </div>
-    );
-  }
-
-  render () {
-
-    let buttons = null;
-    let ingredientList = null;
-    if (this.state.expanded) {
-      ingredientList = this.ingredientList();
-      buttons = this.recipeButtons();
-    }
-
+  render() {
     return (
       <div>
-        <h2><a type="button" onClick={this.toggleExpanded}>{this.props.recipeName}</a></h2>
-        {ingredientList}
-        {buttons}
+        <Panel header={this.props.recipeName} collapsible expanded={this.state.open} onClick={ ()=> this.setState({ open: !this.state.open })}>
+          <ul>
+            {this.props.ingredientList.map((ingredient) => (
+              <li><Ingredient ingredient={ingredient} /></li>
+            ))}
+          </ul>
+          <ButtonToolbar>
+            <Button bsStyle="danger" bsSize="small">Delete</Button>
+            <Button bsSize="small">Edit</Button>
+          </ButtonToolbar>
+        </Panel>
       </div>
     );
   }

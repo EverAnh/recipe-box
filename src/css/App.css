@@ -1,17 +1,13 @@
 /*
----- Foundation Override ----
+---- general ----
 */
 
 body, h1, h2, h3, h4, h5, h6, div, p {
   font-family: 'Roboto', 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
-.button {
-  border-radius: 10px;
-}
-
-.button-group > .button {
-  margin-right: 4px;
+.panel-heading {
+  cursor: pointer;
 }
 
 /*
