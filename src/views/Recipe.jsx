@@ -15,7 +15,7 @@ class Recipe extends React.Component {
         <Panel header={this.props.recipeName} collapsible expanded={this.state.open} onClick={ ()=> this.setState({ open: !this.state.open })}>
           <ul>
             {this.props.ingredientList.map((ingredient) => (
-              <li><Ingredient ingredient={ingredient} /></li>
+              <li>{ingredient}</li>
             ))}
           </ul>
           <ButtonToolbar>
