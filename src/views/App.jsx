@@ -1,5 +1,5 @@
 import React from 'react';
-import RecipeList from './RecipeList';
+import Recipe from './Recipe';
 import '../css/App.css';
 
 class App extends React.Component {
@@ -33,9 +33,14 @@ class App extends React.Component {
         <div className="small-12 columns">
           <div className="bordered">
             <h1>Anh's Recipe Box</h1>
-            <RecipeList
-              state={this.state}
-            />
+
+            {Object.keys(this.state.recipes).map((recipeName) => (
+              <Recipe
+                recipeName={recipeName}
+                ingredientList={this.state.recipes[recipeName]}
+              />
+            ))}
+
             <button
               type="button"
               className="success button"

@@ -1,33 +1,53 @@
 import React from 'react';
 import Ingredient from './Ingredient';
 
-const Recipe = (props) => {
-  return (
-    <div>
-      <h2>{props.recipeName}</h2>
+class Recipe extends React.Component {
+
+  constructor (props) {
+    super(props);
+    this.state = {expanded: false};
+  }
+
+  ingredientList (props) {
+    return (
       <ul>
-        {props.ingredientList.map((ingredient) => (
+        {this.props.ingredientList.map((ingredient) => (
           <li><Ingredient ingredient={ingredient} /></li>
         ))}
       </ul>
+    );
+  }
+
+  recipeButtons (props) {
+    return (
       <div className="button-group">
-        <button
-          type="button"
-          className="alert button"
-          name="Delete"
-        >
+        <button type="button" className="alert button" name="Delete">
           Delete
         </button>
-        <button
-          type="button"
-          className="button"
-          name="Edit"
-        >
+        <button type="button" className="button" name="Edit">
           Edit
         </button>
       </div>
-    </div>
-  );
+    );
+  }
+
+  render () {
+
+    let buttons = null;
+    let ingredientList = null;
+    if (this.state.expanded) {
+      ingredientList = this.ingredientList();
+      buttons = this.recipeButtons();
+    }
+
+    return (
+      <div>
+        <h2><a type="button">{this.props.recipeName}</a></h2>
+        {ingredientList}
+        {buttons}
+      </div>
+    );
+  }
 }
 
 export default Recipe;
