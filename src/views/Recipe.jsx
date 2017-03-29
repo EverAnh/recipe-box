@@ -6,6 +6,12 @@ class Recipe extends React.Component {
   constructor (props) {
     super(props);
     this.state = {expanded: false};
+    this.toggleExpanded = this.toggleExpanded.bind(this);
+  }
+
+  toggleExpanded () {
+    let flipped = !this.state.expanded;
+    this.setState({expanded: flipped});
   }
 
   ingredientList (props) {
@@ -42,7 +48,7 @@ class Recipe extends React.Component {
 
     return (
       <div>
-        <h2><a type="button">{this.props.recipeName}</a></h2>
+        <h2><a type="button" onClick={this.toggleExpanded}>{this.props.recipeName}</a></h2>
         {ingredientList}
         {buttons}
       </div>
