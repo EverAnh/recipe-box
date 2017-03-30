@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, ButtonToolbar, Panel } from 'react-bootstrap';
-import Ingredient from './Ingredient';
 
 class Recipe extends React.Component {
 
@@ -12,7 +11,7 @@ class Recipe extends React.Component {
   render() {
     return (
       <div>
-        <Panel header={this.props.recipeName} collapsible expanded={this.state.open} onClick={ ()=> this.setState({ open: !this.state.open })}>
+        <Panel header={this.props.recipeName} collapsible expanded={this.state.open} onSelect={ ()=> this.setState({ open: !this.state.open })}>
           <ul>
             {this.props.ingredientList.map((ingredient) => (
               <li>{ingredient}</li>
