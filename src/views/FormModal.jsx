@@ -23,13 +23,12 @@ class FormModal extends React.Component {
   }
 
   handleSubmitRecipe(event) {
-    console.log("button clicked");
+    this.props.close();
     this.props.addNewRecipe(this.state.nameVal, this.state.ingredientsVal);
     this.setState({
       nameVal: '',
       ingredientsVal: ''
     });
-    this.props.close();
   }
 
   render() {

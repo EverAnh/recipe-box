@@ -6,11 +6,13 @@ import '../css/App.css';
 
 class App extends React.Component {
   constructor (props) {
+
     super(props);
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.addNewRecipe = this.addNewRecipe.bind(this);
-    this.state = {
+
+    let stateBuilder = {
       formIsOpen: false,
       editMode: false,
       recipes: {
@@ -33,18 +35,14 @@ class App extends React.Component {
         ]
       }
     };
-  }
-
-  openForm(mode) {
-    this.setState({ formIsOpen: true });
-  }
-
-  closeForm() {
-    this.setState({ formIsOpen: false });
+    const lsRecipes = localStorage.getItem("_anhhn1_recipes");
+    if (lsRecipes) {
+      stateBuilder.recipes = JSON.parse(lsRecipes);
+    }
+    this.state = stateBuilder;
   }
 
   addNewRecipe(nameIn, ingredientsIn) {
-    console.log(nameIn + " " + ingredientsIn);
     let ingredientsArr = ingredientsIn.split(",");
     ingredientsArr = ingredientsArr.map((s) => {
       return s.trim();
@@ -52,6 +50,16 @@ class App extends React.Component {
     let recipesState = this.state.recipes;
     recipesState[nameIn] = ingredientsArr;
     this.setState({recipes: recipesState});
+    const lsRecipes = JSON.stringify(recipesState);
+    localStorage.setItem("_anhhn1_recipes", lsRecipes);
+  }
+
+  closeForm() {
+    this.setState({formIsOpen: false});
+  }
+
+  openForm(mode) {
+    this.setState({formIsOpen: true});
   }
 
   render() {
