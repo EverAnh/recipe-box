@@ -7,9 +7,9 @@ import '../css/App.css';
 class App extends React.Component {
   constructor (props) {
     super(props);
-    this.addRecipe = this.addRecipe.bind(this);
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
+    this.addNewRecipe = this.addNewRecipe.bind(this);
     this.state = {
       formIsOpen: false,
       editMode: false,
@@ -35,17 +35,23 @@ class App extends React.Component {
     };
   }
 
-  addRecipe() {
-
-  }
-
   openForm(mode) {
     this.setState({ formIsOpen: true });
-    console.log(mode + " " + this.state.formIsOpen);
   }
 
   closeForm() {
     this.setState({ formIsOpen: false });
+  }
+
+  addNewRecipe(nameIn, ingredientsIn) {
+    console.log(nameIn + " " + ingredientsIn);
+    let ingredientsArr = ingredientsIn.split(",");
+    ingredientsArr = ingredientsArr.map((s) => {
+      return s.trim();
+    });
+    let recipesState = this.state.recipes;
+    recipesState[nameIn] = ingredientsArr;
+    this.setState({recipes: recipesState});
   }
 
   render() {
@@ -64,6 +70,7 @@ class App extends React.Component {
             <FormModal
               isOpen={this.state.formIsOpen}
               close={this.closeForm}
+              addNewRecipe={this.addNewRecipe}
             />
           </Col>
         </Row>
