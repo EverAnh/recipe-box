@@ -11,6 +11,7 @@ class App extends React.Component {
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.addNewRecipe = this.addNewRecipe.bind(this);
+    this.editRecipe = this.editRecipe.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
 
     let stateBuilder = {
@@ -46,12 +47,8 @@ class App extends React.Component {
   }
 
   addNewRecipe(nameIn, ingredientsIn) {
-    let ingredientsArr = ingredientsIn.split(",");
-    ingredientsArr = ingredientsArr.map((s) => {
-      return s.trim();
-    });
     let recipesState = this.state.recipes;
-    recipesState[nameIn] = ingredientsArr;
+    recipesState[nameIn] = ingredientsIn;
     this.setState({recipes: recipesState});
     this.saveToLocalStorage();
   }
@@ -69,7 +66,7 @@ class App extends React.Component {
     }
   }
 
-  editRecipe(name) {
+  editRecipe(nameIn, ingredientsIn) {
 
   }
 
@@ -79,6 +76,10 @@ class App extends React.Component {
     if (name && name !== "") {
       updatedState.recipeToEdit = name;
       updatedState.ingredientsToEdit = this.state.recipes[name].join(", ");
+    }
+    else {
+      updatedState.recipeToEdit = "";
+      updatedState.ingredientsToEdit = "";
     }
     this.setState(updatedState);
   }
@@ -102,7 +103,7 @@ class App extends React.Component {
                 openForm={this.openForm}
               />
             ))}
-            <Button bsStyle="primary" onClick={() => {this.openForm("add")}}>Add Recipe</Button>
+            <Button bsStyle="primary" onClick={() => {this.openForm("add", "")}}>Add Recipe</Button>
             <FormModal
               isOpen={this.state.formIsOpen}
               editMode={this.state.editMode}
@@ -110,6 +111,7 @@ class App extends React.Component {
               ingredientsToEdit={this.state.ingredientsToEdit}
               close={this.closeForm}
               addNewRecipe={this.addNewRecipe}
+              editRecipe={this.editRecipe}
             />
           </Col>
         </Row>

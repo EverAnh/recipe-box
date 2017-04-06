@@ -24,7 +24,16 @@ class FormModal extends React.Component {
 
   handleSubmitRecipe(event) {
     this.props.close();
-    this.props.addNewRecipe(this.state.nameVal, this.state.ingredientsVal);
+    let ingredientsArr = this.state.ingredientsVal.split(",");
+    ingredientsArr = ingredientsArr.map((s) => {
+      return s.trim();
+    });
+    if (this.props.editMode) {
+      this.props.editRecipe(this.state.nameVal, ingredientsArr);
+    }
+    else {
+      this.props.addNewRecipe(this.state.nameVal, ingredientsArr);
+    }
     this.setState({
       nameVal: '',
       ingredientsVal: ''
@@ -33,8 +42,8 @@ class FormModal extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     let stateBuilder = {};
-    stateBuilder.nameVal = nextProps.recipeToEdit;
-    stateBuilder.ingredientsVal = nextProps.ingredientsToEdit;
+    stateBuilder.nameVal = nextProps.editMode ? nextProps.recipeToEdit : "";
+    stateBuilder.ingredientsVal = nextProps.editMode ? nextProps.ingredientsToEdit : "";
     this.setState(stateBuilder);
   }
 
@@ -42,12 +51,12 @@ class FormModal extends React.Component {
 
     const modalTitle = this.props.editMode ? <Modal.Title>Edit Recipe</Modal.Title> : <Modal.Title>Add A Recipe</Modal.Title>;
     const submitButton = this.props.editMode ?
-      <Button type="submit" onClick={this.handleSubmitRecipe} bsStyle="primary">Edit Recipe</Button>
+      <Button type="submit" onClick={this.handleSubmitRecipe} bsStyle="primary">Submit Edit</Button>
       : <Button type="submit" onClick={this.handleSubmitRecipe} bsStyle="primary">Add Recipe</Button>;
 
     return (
       <Modal show={this.props.isOpen} onHide={this.props.close}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton onClick={this.props.close}>
           {modalTitle}
         </Modal.Header>
         <Modal.Body>
