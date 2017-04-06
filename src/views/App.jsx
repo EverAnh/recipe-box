@@ -10,8 +10,7 @@ class App extends React.Component {
     super(props);
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
-    this.addNewRecipe = this.addNewRecipe.bind(this);
-    this.editRecipe = this.editRecipe.bind(this);
+    this.submitRecipe = this.submitRecipe.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
 
     let stateBuilder = {
@@ -46,13 +45,6 @@ class App extends React.Component {
     this.state = stateBuilder;
   }
 
-  addNewRecipe(nameIn, ingredientsIn) {
-    let recipesState = this.state.recipes;
-    recipesState[nameIn] = ingredientsIn;
-    this.setState({recipes: recipesState});
-    this.saveToLocalStorage();
-  }
-
   closeForm() {
     this.setState({formIsOpen: false});
   }
@@ -64,10 +56,6 @@ class App extends React.Component {
       this.setState(updatedState);
       this.saveToLocalStorage();
     }
-  }
-
-  editRecipe(nameIn, ingredientsIn) {
-
   }
 
   openForm(mode, name) {
@@ -87,6 +75,16 @@ class App extends React.Component {
   saveToLocalStorage() {
     const lsRecipes = JSON.stringify(this.state.recipes);
     localStorage.setItem("_anhhn1_recipes", lsRecipes);
+  }
+
+  submitRecipe(nameIn, ingredientsIn) {
+    let updatedRecipes = this.state.recipes;
+    updatedRecipes[nameIn] = ingredientsIn;
+    if (this.state.editMode && nameIn !== this.state.recipeToEdit) {
+      delete(updatedRecipes[this.state.recipeToEdit]);
+    }
+    this.setState({recipes: updatedRecipes});
+    this.saveToLocalStorage();
   }
 
   render() {
@@ -110,8 +108,7 @@ class App extends React.Component {
               recipeToEdit={this.state.recipeToEdit}
               ingredientsToEdit={this.state.ingredientsToEdit}
               close={this.closeForm}
-              addNewRecipe={this.addNewRecipe}
-              editRecipe={this.editRecipe}
+              submitRecipe={this.submitRecipe}
             />
           </Col>
         </Row>

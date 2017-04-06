@@ -28,12 +28,7 @@ class FormModal extends React.Component {
     ingredientsArr = ingredientsArr.map((s) => {
       return s.trim();
     });
-    if (this.props.editMode) {
-      this.props.editRecipe(this.state.nameVal, ingredientsArr);
-    }
-    else {
-      this.props.addNewRecipe(this.state.nameVal, ingredientsArr);
-    }
+    this.props.submitRecipe(this.state.nameVal, ingredientsArr);
     this.setState({
       nameVal: '',
       ingredientsVal: ''
