@@ -31,31 +31,44 @@ class FormModal extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    let stateBuilder = {};
+    stateBuilder.nameVal = nextProps.recipeToEdit;
+    stateBuilder.ingredientsVal = nextProps.ingredientsToEdit;
+    this.setState(stateBuilder);
+  }
+
   render() {
+
+    const modalTitle = this.props.editMode ? <Modal.Title>Edit Recipe</Modal.Title> : <Modal.Title>Add A Recipe</Modal.Title>;
+    const submitButton = this.props.editMode ?
+      <Button type="submit" onClick={this.handleSubmitRecipe} bsStyle="primary">Edit Recipe</Button>
+      : <Button type="submit" onClick={this.handleSubmitRecipe} bsStyle="primary">Add Recipe</Button>;
+
     return (
       <Modal show={this.props.isOpen} onHide={this.props.close}>
         <Modal.Header closeButton>
-          <Modal.Title>Add A Recipe</Modal.Title>
+          {modalTitle}
         </Modal.Header>
         <Modal.Body>
           <form>
             <FormGroup controlId="fcName">
               <ControlLabel>Recipe Name</ControlLabel>
-              <FormControl type="text" value={this.props.value} onChange={this.handleChangeName} />
+              <FormControl type="text" value={this.state.nameVal} onChange={this.handleChangeName} />
             </FormGroup>
             <FormGroup controlId="fcIngredients">
               <ControlLabel>Ingredients</ControlLabel>
               <FormControl
                 componentClass="textarea"
                 placeholder="Enter ingredients, separated by commas."
-                value={this.props.value}
+                value={this.state.ingredientsVal}
                 onChange={this.handleChangeIngredients}
               />
             </FormGroup>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="submit" onClick={this.handleSubmitRecipe} bsStyle="primary">Add Recipe</Button>
+          {submitButton}
           <Button onClick={this.props.close}>Close</Button>
         </Modal.Footer>
       </Modal>

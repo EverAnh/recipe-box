@@ -18,8 +18,8 @@ class Recipe extends React.Component {
             ))}
           </ul>
           <ButtonToolbar>
-            <Button bsStyle="danger" bsSize="small">Delete</Button>
-            <Button bsSize="small">Edit</Button>
+            <Button bsStyle="danger" bsSize="small" onClick={() => {this.props.deleteRecipe(this.props.recipeName)}}>Delete</Button>
+            <Button bsSize="small" onClick={() => {this.props.openForm("edit", this.props.recipeName)}}>Edit</Button>
           </ButtonToolbar>
         </Panel>
       </div>

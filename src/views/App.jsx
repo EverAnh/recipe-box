@@ -11,10 +11,13 @@ class App extends React.Component {
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.addNewRecipe = this.addNewRecipe.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
 
     let stateBuilder = {
       formIsOpen: false,
       editMode: false,
+      recipeToEdit: "",
+      ingredientsToEdit: "",
       recipes: {
         "Pumpkin Pie": [
           "Pumpkin Puree",
@@ -50,16 +53,39 @@ class App extends React.Component {
     let recipesState = this.state.recipes;
     recipesState[nameIn] = ingredientsArr;
     this.setState({recipes: recipesState});
-    const lsRecipes = JSON.stringify(recipesState);
-    localStorage.setItem("_anhhn1_recipes", lsRecipes);
+    this.saveToLocalStorage();
   }
 
   closeForm() {
     this.setState({formIsOpen: false});
   }
 
-  openForm(mode) {
-    this.setState({formIsOpen: true});
+  deleteRecipe(name) {
+    if(confirm("Are you sure you want to delete \"" + name + "\"?")) {
+      let updatedState = this.state;
+      delete(updatedState.recipes[name]);
+      this.setState(updatedState);
+      this.saveToLocalStorage();
+    }
+  }
+
+  editRecipe(name) {
+
+  }
+
+  openForm(mode, name) {
+    let updatedState = {formIsOpen: true};
+    updatedState.editMode = (mode === "edit");
+    if (name && name !== "") {
+      updatedState.recipeToEdit = name;
+      updatedState.ingredientsToEdit = this.state.recipes[name].join(", ");
+    }
+    this.setState(updatedState);
+  }
+
+  saveToLocalStorage() {
+    const lsRecipes = JSON.stringify(this.state.recipes);
+    localStorage.setItem("_anhhn1_recipes", lsRecipes);
   }
 
   render() {
@@ -72,11 +98,16 @@ class App extends React.Component {
               <Recipe
                 recipeName={recipeName}
                 ingredientList={this.state.recipes[recipeName]}
+                deleteRecipe={this.deleteRecipe}
+                openForm={this.openForm}
               />
             ))}
             <Button bsStyle="primary" onClick={() => {this.openForm("add")}}>Add Recipe</Button>
             <FormModal
               isOpen={this.state.formIsOpen}
+              editMode={this.state.editMode}
+              recipeToEdit={this.state.recipeToEdit}
+              ingredientsToEdit={this.state.ingredientsToEdit}
               close={this.closeForm}
               addNewRecipe={this.addNewRecipe}
             />
